@@ -4,7 +4,7 @@
  * @Author: huhuimao
  * @Date: 2022-11-16 16:58:55
  * @LastEditors: huhuimao
- * @LastEditTime: 2022-11-16 20:01:27
+ * @LastEditTime: 2022-11-22 10:29:41
  */
 import { BigInt } from "@graphprotocol/graph-ts"
 import {
@@ -72,7 +72,7 @@ export function handleCreateVesting(event: CreateVesting): void {
   entity.cliffDuration = event.params.cliffDuration
   entity.stepDuration = event.params.stepDuration
   entity.steps = event.params.steps
-  entity.totalAmount = entity.stepShares + entity.stepShares;
+  entity.totalAmount = entity.stepShares * entity.steps + entity.cliffShares;
   // Entities can be written to the store with `.save()`
   entity.save()
 

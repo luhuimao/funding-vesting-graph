@@ -4,14 +4,16 @@
  * @Author: huhuimao
  * @Date: 2022-11-16 17:01:41
  * @LastEditors: huhuimao
- * @LastEditTime: 2022-11-22 09:43:37
+ * @LastEditTime: 2022-11-22 10:52:23
  */
 import {
   AllocateToken as AllocateTokenEvent,
-  ConfigureDao as ConfigureDaoEvent
+  ConfigureDao as ConfigureDaoEvent,
+  AllocationAdapterContractV2,
+  AllocationAdapterContractV2__vestingInfosResult
 } from "../generated/AllocationAdapterContractV2/AllocationAdapterContractV2"
 import { AllocateToken, ConfigureDao, ProposalCreated, UserVestInfo } from "../generated/schema"
-import { BigInt, Bytes } from "@graphprotocol/graph-ts"
+import { BigInt, Bytes, Address } from "@graphprotocol/graph-ts"
 
 export function handleAllocateToken(event: AllocateTokenEvent): void {
   let entity = new AllocateToken(
@@ -38,23 +40,27 @@ export function handleAllocateToken(event: AllocateTokenEvent): void {
     const vestingStepDuration = fundingProposalEntity!.vestingStepDuration;
     const vestingSteps = fundingProposalEntity!.vestingSteps;
 
+    let allocContract = AllocationAdapterContractV2.bind(event.address);
+
     for (var i = 0; i < entity.lps.length; i++) {
       let userVestInfo = new UserVestInfo(entity.proposalId.toString() + "-" + entity.lps[i].toString());
       userVestInfo.fundingProposalId = event.params.proposalId;
       userVestInfo.recipient = entity.lps[i];
+      let vestInfo = allocContract.vestingInfos(Address.fromBytes(Bytes.fromHexString("0xd0a0582A8e82dC63056056188ED4406E45B84692")),
+        userVestInfo.fundingProposalId,
+        Address.fromBytes(userVestInfo.recipient));
       userVestInfo.vestingStartTime = vestingStartTime;
       userVestInfo.vestingCliffDuration = vestingCliffDuration;
       userVestInfo.vestingStepDuration = vestingStepDuration;
       userVestInfo.vestingSteps = vestingSteps;
-      userVestInfo.totalAmount = BigInt.fromI32(0);
+      userVestInfo.totalAmount = vestInfo.getTokenAmount();
       userVestInfo.created = false;
 
       userVestInfo.save();
     }
   }
 
-  // let allocContract = AllocationAdapterContractV2.bind(event.address);
-  // allocContract.vestingInfos()
+
   //
   // The following functions can then be called on this contract to access
   // state variables and other data:
