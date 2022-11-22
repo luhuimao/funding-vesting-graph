@@ -1,0 +1,179 @@
+[
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "bytes32",
+        "name": "proposalId",
+        "type": "bytes32"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "proposer",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "address[]",
+        "name": "lps",
+        "type": "address[]"
+      }
+    ],
+    "name": "AllocateToken",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "gpAllocationBonusRadio",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "riceStakeAllocationRadio",
+        "type": "uint256"
+      }
+    ],
+    "name": "ConfigureDao",
+    "type": "event"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "contract DaoRegistry",
+        "name": "dao",
+        "type": "address"
+      },
+      { "internalType": "address", "name": "tokenAddress", "type": "address" },
+      { "internalType": "address", "name": "proposerAddr", "type": "address" },
+      { "internalType": "bytes32", "name": "proposalId", "type": "bytes32" },
+      {
+        "internalType": "uint256[5]",
+        "name": "uint256Args",
+        "type": "uint256[5]"
+      }
+    ],
+    "name": "allocateProjectToken",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "contract DaoRegistry",
+        "name": "dao",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "gpAllocationBonusRadio",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "riceStakeAllocationRadio",
+        "type": "uint256"
+      }
+    ],
+    "name": "configureDao",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "contract DaoRegistry",
+        "name": "dao",
+        "type": "address"
+      },
+      { "internalType": "address", "name": "recipient", "type": "address" },
+      { "internalType": "uint256", "name": "tokenAmount", "type": "uint256" }
+    ],
+    "name": "getFundingRewards",
+    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "contract DaoRegistry",
+        "name": "dao",
+        "type": "address"
+      },
+      { "internalType": "address", "name": "proposerAddr", "type": "address" },
+      { "internalType": "uint256", "name": "tokenAmount", "type": "uint256" }
+    ],
+    "name": "getProposerBonus",
+    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "contract DaoRegistry",
+        "name": "dao",
+        "type": "address"
+      },
+      { "internalType": "address", "name": "recipient", "type": "address" },
+      { "internalType": "bytes32", "name": "proposalId", "type": "bytes32" }
+    ],
+    "name": "ifEligible",
+    "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "contract DaoRegistry",
+        "name": "dao",
+        "type": "address"
+      },
+      { "internalType": "bytes32", "name": "proposalId", "type": "bytes32" },
+      { "internalType": "address", "name": "recepient", "type": "address" }
+    ],
+    "name": "isVestCreated",
+    "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "contract DaoRegistry",
+        "name": "dao",
+        "type": "address"
+      },
+      { "internalType": "bytes32", "name": "proposalId", "type": "bytes32" },
+      { "internalType": "address", "name": "recipient", "type": "address" }
+    ],
+    "name": "streamCreated",
+    "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "address", "name": "", "type": "address" },
+      { "internalType": "bytes32", "name": "", "type": "bytes32" },
+      { "internalType": "address", "name": "", "type": "address" }
+    ],
+    "name": "vestingInfos",
+    "outputs": [
+      { "internalType": "uint256", "name": "tokenAmount", "type": "uint256" },
+      { "internalType": "bool", "name": "created", "type": "bool" }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  }
+]

@@ -1,3 +1,11 @@
+/*
+ * @Descripttion: 
+ * @version: 
+ * @Author: huhuimao
+ * @Date: 2022-11-16 16:58:55
+ * @LastEditors: huhuimao
+ * @LastEditTime: 2022-11-16 20:01:27
+ */
 import { BigInt } from "@graphprotocol/graph-ts"
 import {
   FuroVesting,
@@ -7,31 +15,10 @@ import {
   OwnershipTransferred,
   Withdraw
 } from "../generated/FuroVesting/FuroVesting"
-import { ExampleEntity } from "../generated/schema"
+import { VestEntity, UserVestInfo } from "../generated/schema"
 
 export function handleCancelVesting(event: CancelVesting): void {
-  // Entities can be loaded from the store using a string ID; this ID
-  // needs to be unique across all entities of the same type
-  let entity = ExampleEntity.load(event.transaction.from.toHex())
 
-  // Entities only exist after they have been saved to the store;
-  // `null` checks allow to create entities on demand
-  if (!entity) {
-    entity = new ExampleEntity(event.transaction.from.toHex())
-
-    // Entity fields can be set using simple assignments
-    entity.count = BigInt.fromI32(0)
-  }
-
-  // BigInt and BigDecimal math are supported
-  entity.count = entity.count + BigInt.fromI32(1)
-
-  // Entity fields can be set based on event parameters
-  entity.vestId = event.params.vestId
-  entity.ownerAmount = event.params.ownerAmount
-
-  // Entities can be written to the store with `.save()`
-  entity.save()
 
   // Note: If a handler doesn't require existing field values, it is faster
   // _not_ to load the entity from the store. Instead, create it fresh with
@@ -58,10 +45,47 @@ export function handleCancelVesting(event: CancelVesting): void {
   // - contract.wETH(...)
 }
 
-export function handleCreateVesting(event: CreateVesting): void {}
+export function handleCreateVesting(event: CreateVesting): void {
+  let entity = VestEntity.load(event.transaction.hash.toHex())
 
-export function handleLogUpdateOwner(event: LogUpdateOwner): void {}
+  // Entities only exist after they have been saved to the store;
+  // `null` checks allow to create entities on demand
+  if (!entity) {
+    entity = new VestEntity(event.transaction.hash.toHex())
 
-export function handleOwnershipTransferred(event: OwnershipTransferred): void {}
+    // Entity fields can be set using simple assignments
+    // entity.count = BigInt.fromI32(0)
+  }
 
-export function handleWithdraw(event: Withdraw): void {}
+  // BigInt and BigDecimal math are supported
+  // entity.count = entity.count + BigInt.fromI32(1)
+
+  // Entity fields can be set based on event parameters
+
+  entity.vestId = event.params.vestId
+  entity.recipient = event.params.recipient
+  entity.proposalId = event.params.proposalId
+  entity.cliffShares = event.params.cliffShares
+  entity.stepShares = event.params.stepShares
+  entity.tokenAddress = event.params.token
+  entity.startTime = event.params.start
+  entity.cliffDuration = event.params.cliffDuration
+  entity.stepDuration = event.params.stepDuration
+  entity.steps = event.params.steps
+  entity.totalAmount = entity.stepShares + entity.stepShares;
+  // Entities can be written to the store with `.save()`
+  entity.save()
+
+  let userVestInfo = UserVestInfo.load(entity.proposalId.toString() + "-" + entity.recipient.toString());
+  if (userVestInfo) {
+    userVestInfo.created = true;
+    userVestInfo.save();
+  }
+
+}
+
+export function handleLogUpdateOwner(event: LogUpdateOwner): void { }
+
+export function handleOwnershipTransferred(event: OwnershipTransferred): void { }
+
+export function handleWithdraw(event: Withdraw): void { }

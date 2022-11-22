@@ -1,0 +1,56 @@
+/*
+ * @Descripttion: 
+ * @version: 
+ * @Author: huhuimao
+ * @Date: 2022-11-16 17:00:56
+ * @LastEditors: huhuimao
+ * @LastEditTime: 2022-11-17 22:48:30
+ */
+import {
+  ProposalCreated as ProposalCreatedEvent,
+  ProposalExecuted as ProposalExecutedEvent
+} from "../generated/DistributeFundContractV2/DistributeFundContractV2"
+import { ProposalCreated, ProposalExecuted } from "../generated/schema"
+import { BigInt, Bytes } from "@graphprotocol/graph-ts"
+
+export function handleProposalCreated(event: ProposalCreatedEvent): void {
+
+  let entity = ProposalCreated.load(event.params.proposalId.toString())
+
+  // Entities only exist after they have been saved to the store;
+  // `null` checks allow to create entities on demand
+  if (!entity) {
+    entity = new ProposalCreated(event.params.proposalId.toString())
+
+    // Entity fields can be set using simple assignments
+    // entity.count = BigInt.fromI32(0)
+  }
+
+  entity.proposalId = event.params.proposalId
+  entity.projectTokenAddress = event.params.projectTokenAddress
+  entity.projectTeamAddress = event.params.projectTeamAddress
+  entity.tradingOffTokenAmount = event.params.tradingOffTokenAmount
+  entity.requestedFundAmount = event.params.requestedFundAmount
+  entity.inQueueTimestamp = event.params.inQueueTimestamp
+  entity.voteStartingTimestamp = event.params.voteStartingTimestamp
+  entity.voteEndTimestamp = event.params.voteEndTimestamp
+  entity.proposalExecuteTimestamp = event.params.proposalExecuteTimestamp
+  entity.vestingStartTIme = event.params.vestingStartTime;
+  entity.vestingCliffDuration = event.params.vestingCliffDuration;
+  entity.vestingStepDuration = event.params.vestingStepDuration;
+  entity.vestingSteps = event.params.vestingSteps;
+  entity.save()
+}
+
+export function handleProposalExecuted(event: ProposalExecutedEvent): void {
+  let entity = new ProposalExecuted(
+    event.transaction.hash.toHex() + "-" + event.logIndex.toString()
+  )
+  entity.proposalID = event.params.proposalID
+  entity.state = event.params.state
+  entity.allVotingWeight = event.params.allVotingWeight
+  entity.nbYes = event.params.nbYes
+  entity.nbNo = event.params.nbNo
+  entity.distributeState = event.params.distributeState
+  entity.save()
+}

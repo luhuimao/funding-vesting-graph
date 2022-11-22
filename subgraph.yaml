@@ -1,4 +1,4 @@
-specVersion: 0.0.1
+specVersion: 0.0.4
 schema:
   file: ./schema.graphql
 dataSources:
@@ -6,11 +6,11 @@ dataSources:
     name: FuroVesting
     network: goerli
     source:
-      address: "0x3AAcadd278226731FDDB530B863d182912B2E38D"
+      address: "0xde65fd20ac64444adbc4c7cec8164e1d3dc7c10b"
       abi: FuroVesting
     mapping:
       kind: ethereum/events
-      apiVersion: 0.0.5
+      apiVersion: 0.0.6
       language: wasm/assemblyscript
       entities:
         - CancelVesting
@@ -24,7 +24,8 @@ dataSources:
       eventHandlers:
         - event: CancelVesting(indexed uint256,indexed uint256,indexed uint256,address,bool)
           handler: handleCancelVesting
-        - event: CreateVesting(indexed uint256,address,indexed address,uint32,uint32,uint32,uint32,uint128,uint128,bytes32)
+        - event: CreateVesting(indexed uint256,address,indexed
+            address,uint32,uint32,uint32,uint32,uint128,uint128,bytes32)
           handler: handleCreateVesting
         - event: LogUpdateOwner(indexed uint256,indexed address)
           handler: handleLogUpdateOwner
@@ -33,3 +34,47 @@ dataSources:
         - event: Withdraw(indexed uint256,indexed address,indexed uint256,bool)
           handler: handleWithdraw
       file: ./src/furo-vesting.ts
+  - kind: ethereum
+    name: DistributeFundContractV2
+    network: goerli
+    source:
+      address: "0x69b44d07d3cff14b4ff064eb28e6ce4f9edcfa99"
+      abi: DistributeFundContractV2
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      entities:
+        - ProposalCreated
+        - ProposalExecuted
+      abis:
+        - name: DistributeFundContractV2
+          file: ./abis/DistributeFundContractV2.json
+      eventHandlers:
+        - event:  ProposalCreated(bytes32,address,address,uint256,uint256,uint256,uint256,uint256,uint256,uint256,uint256,uint256,uint256)
+          handler: handleProposalCreated
+        - event: ProposalExecuted(bytes32,uint256,uint128,uint128,uint128,uint256)
+          handler: handleProposalExecuted
+      file: ./src/distribute-fund-contract-v-2.ts
+  - kind: ethereum
+    name: AllocationAdapterContractV2
+    network: goerli
+    source:
+      address: "0x67F5606Da4E637BCA0db1b98CA9f2ffC6CF79a86"
+      abi: AllocationAdapterContractV2
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      entities:
+        - AllocateToken
+        - ConfigureDao
+      abis:
+        - name: AllocationAdapterContractV2
+          file: ./abis/AllocationAdapterContractV2.json
+      eventHandlers:
+        - event: AllocateToken(bytes32,address,address[])
+          handler: handleAllocateToken
+        - event: ConfigureDao(uint256,uint256)
+          handler: handleConfigureDao
+      file: ./src/allocation-adapter-contract-v-2.ts
