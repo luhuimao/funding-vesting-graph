@@ -20,6 +20,7 @@ type ProposalCreated @entity {
   proposalId: Bytes! # bytes32
   projectTokenAddress: Bytes! # address
   projectTeamAddress: Bytes! # address
+  approveOwnerAddress: Bytes! # address
   tradingOffTokenAmount: BigInt! # uint256
   requestedFundAmount: BigInt! # uint256
   inQueueTimestamp: BigInt! # uint256
@@ -30,6 +31,7 @@ type ProposalCreated @entity {
   vestingCliffDuration:  BigInt! # uint256
   vestingStepDuration:  BigInt! # uint256
   vestingSteps:  BigInt! # uint256
+  state: BigInt! # uint256
 }
 
 type ProposalExecuted @entity {
@@ -64,4 +66,20 @@ type ConfigureDao @entity {
   id: ID!
   gpAllocationBonusRadio: BigInt! # uint256
   riceStakeAllocationRadio: BigInt! # uint256
+}
+
+type FundRaiseProposal @entity{
+  id: ID!
+  proposalId: Bytes! # bytes32
+  acceptTokenAddr: Bytes! # address
+  fundRaiseTarget: BigInt! # uint256
+  fundRaiseMaxAmount: BigInt! # uint256
+  lpMinDepositAmount: BigInt! # uint256
+  lpMaxDepositAmount: BigInt! # uint256
+  fundRaiseStartTime: BigInt! # uint256
+  fundRaiseEndTime: BigInt! # uint256
+  fundEndTime: BigInt! # uint256
+  redemptPeriod: BigInt! # uint256
+  redemptDuration: BigInt! # uint256
+  state: BigInt! # uint256
 }

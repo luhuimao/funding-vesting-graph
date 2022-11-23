@@ -6,7 +6,7 @@ dataSources:
     name: FuroVesting
     network: goerli
     source:
-      address: "0xde65fd20ac64444adbc4c7cec8164e1d3dc7c10b"
+      address: "0x4BD8C586A21Af2bA7c0D7095e86Ec7395310DB14"
       abi: FuroVesting
     mapping:
       kind: ethereum/events
@@ -38,7 +38,7 @@ dataSources:
     name: DistributeFundContractV2
     network: goerli
     source:
-      address: "0x69b44d07d3cff14b4ff064eb28e6ce4f9edcfa99"
+      address: "0x51428ca00E5ad3fCC3e0BcEBb0FD920d3B7D6F07"
       abi: DistributeFundContractV2
     mapping:
       kind: ethereum/events
@@ -51,10 +51,12 @@ dataSources:
         - name: DistributeFundContractV2
           file: ./abis/DistributeFundContractV2.json
       eventHandlers:
-        - event:  ProposalCreated(bytes32,address,address,uint256,uint256,uint256,uint256,uint256,uint256,uint256,uint256,uint256,uint256)
+        - event: ProposalCreated(bytes32,address,address,address,uint256,uint256,uint256,uint256,uint256,uint256,uint256,uint256,uint256,uint256)
           handler: handleProposalCreated
         - event: ProposalExecuted(bytes32,uint256,uint128,uint128,uint128,uint256)
           handler: handleProposalExecuted
+        - event: StartVote(bytes32,uint256,uint256,uint8)
+          handler: handleStartVote
       file: ./src/distribute-fund-contract-v-2.ts
   - kind: ethereum
     name: AllocationAdapterContractV2
@@ -78,3 +80,25 @@ dataSources:
         - event: ConfigureDao(uint256,uint256)
           handler: handleConfigureDao
       file: ./src/allocation-adapter-contract-v-2.ts
+  - kind: ethereum
+    name: FundRaiseAdapterContract
+    network: goerli
+    source:
+      address: "0x236Aab623a87591a2683778D5d766953eb107594"
+      abi: FundRaiseAdapterContract
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      entities:
+        - ProposalCreated
+        - proposalExecuted
+      abis:
+        - name: FundRaiseAdapterContract
+          file: ./abis/FundRaiseAdapterContract.json
+      eventHandlers:
+        - event: ProposalCreated(bytes32,address,uint256,uint256,uint256,uint256,uint256,uint256,uint256,uint256,uint256)
+          handler: handleProposalCreated
+        - event: proposalExecuted(bytes32,uint256)
+          handler: handleproposalExecuted
+      file: ./src/fund-raise-adapter-contract.ts

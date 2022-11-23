@@ -1,0 +1,286 @@
+[
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "bytes32",
+        "name": "proposalId",
+        "type": "bytes32"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "acceptTokenAddr",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "fundRaiseTarget",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "fundRaiseMaxAmount",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "lpMinDepositAmount",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "lpMaxDepositAmount",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "fundRaiseStartTime",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "fundRaiseEndTime",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "fundEndTime",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "redemptPeriod",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "redemptDuration",
+        "type": "uint256"
+      }
+    ],
+    "name": "ProposalCreated",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "bytes32",
+        "name": "proposalId",
+        "type": "bytes32"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "state",
+        "type": "uint256"
+      }
+    ],
+    "name": "proposalExecuted",
+    "type": "event"
+  },
+  {
+    "inputs": [
+      { "internalType": "address", "name": "", "type": "address" },
+      { "internalType": "bytes32", "name": "", "type": "bytes32" }
+    ],
+    "name": "Proposals",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "acceptTokenAddr",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "fundRaiseTarget",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "fundRaiseMaxAmount",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "lpMinDepositAmount",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "lpMaxDepositAmount",
+        "type": "uint256"
+      },
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "fundRaiseStartTime",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "fundRaiseEndTime",
+            "type": "uint256"
+          },
+          { "internalType": "uint256", "name": "fundTerm", "type": "uint256" },
+          {
+            "internalType": "uint256",
+            "name": "redemptPeriod",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "redemptDuration",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "returnDuration",
+            "type": "uint256"
+          }
+        ],
+        "internalType": "struct IFundRaise.FundRiaseTimeInfo",
+        "name": "timesInfo",
+        "type": "tuple"
+      },
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "proposerRewardRatio",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "managementFeeRatio",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "redepmtFeeRatio",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "protocolFeeRatio",
+            "type": "uint256"
+          }
+        ],
+        "internalType": "struct IFundRaise.FundRaiseRewardAndFeeInfo",
+        "name": "feeInfo",
+        "type": "tuple"
+      },
+      {
+        "internalType": "enum IFundRaise.ProposalState",
+        "name": "state",
+        "type": "uint8"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "contract DaoRegistry",
+        "name": "dao",
+        "type": "address"
+      },
+      { "internalType": "address", "name": "_addr", "type": "address" }
+    ],
+    "name": "isActiveGeneralPartner",
+    "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "contract DaoRegistry",
+        "name": "dao",
+        "type": "address"
+      },
+      { "internalType": "address", "name": "_addr", "type": "address" }
+    ],
+    "name": "isActiveMember",
+    "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "latestProposalId",
+    "outputs": [{ "internalType": "bytes32", "name": "", "type": "bytes32" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "previousProposalId",
+    "outputs": [{ "internalType": "bytes32", "name": "", "type": "bytes32" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "contract DaoRegistry",
+        "name": "dao",
+        "type": "address"
+      },
+      { "internalType": "bytes32", "name": "proposalId", "type": "bytes32" }
+    ],
+    "name": "processProposal",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "proposalIds",
+    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "contract DaoRegistry",
+        "name": "dao",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256[]",
+        "name": "_uint256ArgsProposal",
+        "type": "uint256[]"
+      },
+      {
+        "internalType": "uint256[]",
+        "name": "_uint256ArgsTimeInfo",
+        "type": "uint256[]"
+      },
+      {
+        "internalType": "uint256[]",
+        "name": "_uint256ArgsFeeInfo",
+        "type": "uint256[]"
+      }
+    ],
+    "name": "submitProposal",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  }
+]

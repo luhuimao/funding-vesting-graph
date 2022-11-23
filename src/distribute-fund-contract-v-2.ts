@@ -4,14 +4,15 @@
  * @Author: huhuimao
  * @Date: 2022-11-16 17:00:56
  * @LastEditors: huhuimao
- * @LastEditTime: 2022-11-17 22:48:30
+ * @LastEditTime: 2022-11-23 13:28:46
  */
 import {
   ProposalCreated as ProposalCreatedEvent,
-  ProposalExecuted as ProposalExecutedEvent
+  ProposalExecuted as ProposalExecutedEvent,
+  StartVote as handleStartVoteEvent
 } from "../generated/DistributeFundContractV2/DistributeFundContractV2"
 import { ProposalCreated, ProposalExecuted } from "../generated/schema"
-import { BigInt, Bytes } from "@graphprotocol/graph-ts"
+import { bigInt, BigInt, Bytes } from "@graphprotocol/graph-ts"
 
 export function handleProposalCreated(event: ProposalCreatedEvent): void {
 
@@ -29,6 +30,7 @@ export function handleProposalCreated(event: ProposalCreatedEvent): void {
   entity.proposalId = event.params.proposalId
   entity.projectTokenAddress = event.params.projectTokenAddress
   entity.projectTeamAddress = event.params.projectTeamAddress
+  entity.approveOwnerAddress = event.params.approveOwnerAddress;
   entity.tradingOffTokenAmount = event.params.tradingOffTokenAmount
   entity.requestedFundAmount = event.params.requestedFundAmount
   entity.inQueueTimestamp = event.params.inQueueTimestamp
@@ -39,6 +41,7 @@ export function handleProposalCreated(event: ProposalCreatedEvent): void {
   entity.vestingCliffDuration = event.params.vestingCliffDuration;
   entity.vestingStepDuration = event.params.vestingStepDuration;
   entity.vestingSteps = event.params.vestingSteps;
+  entity.state = BigInt.fromI32(0);
   entity.save()
 }
 
@@ -53,4 +56,14 @@ export function handleProposalExecuted(event: ProposalExecutedEvent): void {
   entity.nbNo = event.params.nbNo
   entity.distributeState = event.params.distributeState
   entity.save()
+}
+
+export function handleStartVote(event: handleStartVoteEvent): void {
+  let entity = ProposalCreated.load(event.params.proposalID.toString())
+  if (entity) {
+    entity.state = BigInt.fromI32(event.params.state);
+    entity.voteStartingTimestamp = event.params.startVoteTime;
+    entity.voteEndTimestamp = event.params.stopVoteTime;
+  }
+
 }
