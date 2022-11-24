@@ -6,7 +6,7 @@ dataSources:
     name: FuroVesting
     network: goerli
     source:
-      address: "0x4BD8C586A21Af2bA7c0D7095e86Ec7395310DB14"
+      address: "0x881d3E8d6b169c045ed443174333b46186b0Da24"
       abi: FuroVesting
     mapping:
       kind: ethereum/events
@@ -38,7 +38,7 @@ dataSources:
     name: DistributeFundContractV2
     network: goerli
     source:
-      address: "0x51428ca00E5ad3fCC3e0BcEBb0FD920d3B7D6F07"
+      address: "0x3515951b4691085115D142044532D26Ae4E95342"
       abi: DistributeFundContractV2
     mapping:
       kind: ethereum/events

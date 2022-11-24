@@ -4,7 +4,7 @@
  * @Author: huhuimao
  * @Date: 2022-11-16 16:58:55
  * @LastEditors: huhuimao
- * @LastEditTime: 2022-11-22 10:29:41
+ * @LastEditTime: 2022-11-24 13:06:13
  */
 import { BigInt } from "@graphprotocol/graph-ts"
 import {
@@ -46,12 +46,12 @@ export function handleCancelVesting(event: CancelVesting): void {
 }
 
 export function handleCreateVesting(event: CreateVesting): void {
-  let entity = VestEntity.load(event.transaction.hash.toHex())
+  let entity = VestEntity.load(event.params.vestId.toString())
 
   // Entities only exist after they have been saved to the store;
   // `null` checks allow to create entities on demand
   if (!entity) {
-    entity = new VestEntity(event.transaction.hash.toHex())
+    entity = new VestEntity(event.params.vestId.toString())
 
     // Entity fields can be set using simple assignments
     // entity.count = BigInt.fromI32(0)
@@ -73,10 +73,11 @@ export function handleCreateVesting(event: CreateVesting): void {
   entity.stepDuration = event.params.stepDuration
   entity.steps = event.params.steps
   entity.totalAmount = entity.stepShares * entity.steps + entity.cliffShares;
+  entity.claimedAmount = BigInt.fromI32(0);
   // Entities can be written to the store with `.save()`
   entity.save()
 
-  let userVestInfo = UserVestInfo.load(entity.proposalId.toString() + "-" + entity.recipient.toString());
+  let userVestInfo = UserVestInfo.load(entity.proposalId.toString() + "-" + entity.recipient.toHexString());
   if (userVestInfo) {
     userVestInfo.created = true;
     userVestInfo.save();
@@ -88,4 +89,12 @@ export function handleLogUpdateOwner(event: LogUpdateOwner): void { }
 
 export function handleOwnershipTransferred(event: OwnershipTransferred): void { }
 
-export function handleWithdraw(event: Withdraw): void { }
+export function handleWithdraw(event: Withdraw): void {
+  let entity = VestEntity.load(event.params.vestId.toString())
+  if (entity) {
+    let vestingContract = FuroVesting.bind(event.address);
+    let vestInfo = vestingContract.vests(event.params.vestId);
+    entity.claimedAmount = vestInfo.getClaimed();
+    entity.save();
+  }
+}

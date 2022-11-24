@@ -4,7 +4,7 @@
  * @Author: huhuimao
  * @Date: 2022-11-16 17:01:41
  * @LastEditors: huhuimao
- * @LastEditTime: 2022-11-22 10:52:23
+ * @LastEditTime: 2022-11-24 13:04:13
  */
 import {
   AllocateToken as AllocateTokenEvent,
@@ -43,7 +43,7 @@ export function handleAllocateToken(event: AllocateTokenEvent): void {
     let allocContract = AllocationAdapterContractV2.bind(event.address);
 
     for (var i = 0; i < entity.lps.length; i++) {
-      let userVestInfo = new UserVestInfo(entity.proposalId.toString() + "-" + entity.lps[i].toString());
+      let userVestInfo = new UserVestInfo(entity.proposalId.toString() + "-" + entity.lps[i].toHexString());
       userVestInfo.fundingProposalId = event.params.proposalId;
       userVestInfo.recipient = entity.lps[i];
       let vestInfo = allocContract.vestingInfos(Address.fromBytes(Bytes.fromHexString("0xd0a0582A8e82dC63056056188ED4406E45B84692")),

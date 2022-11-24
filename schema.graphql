@@ -13,6 +13,7 @@ type VestEntity @entity {
   cliffShares: BigInt! # uint256
   stepShares: BigInt! # uint256
   totalAmount:  BigInt! # uint256
+  claimedAmount: BigInt! # uint256
 }
 
 type ProposalCreated @entity {
@@ -31,6 +32,7 @@ type ProposalCreated @entity {
   vestingCliffDuration:  BigInt! # uint256
   vestingStepDuration:  BigInt! # uint256
   vestingSteps:  BigInt! # uint256
+  vestingCliffLockAmount:  BigInt! # uint256
   state: BigInt! # uint256
 }
 
