@@ -4,7 +4,7 @@
  * @Author: huhuimao
  * @Date: 2022-11-22 15:32:03
  * @LastEditors: huhuimao
- * @LastEditTime: 2022-11-22 15:50:11
+ * @LastEditTime: 2022-11-24 22:13:44
  */
 import { BigInt } from "@graphprotocol/graph-ts"
 import {
@@ -74,7 +74,7 @@ export function handleproposalExecuted(event: proposalExecuted): void {
   // Entities only exist after they have been saved to the store;
   // `null` checks allow to create entities on demand
   if (entity) {
-    entity.state = event.params.state;
+    entity.state = BigInt.fromI32(event.params.state);
     entity.save();
   }
 }

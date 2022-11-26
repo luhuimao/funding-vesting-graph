@@ -6,7 +6,7 @@ dataSources:
     name: FuroVesting
     network: goerli
     source:
-      address: "0x881d3E8d6b169c045ed443174333b46186b0Da24"
+      address: "0xe6F5F4f71364d4D521b5Cf40E03c77098DFbCeb0"
       abi: FuroVesting
     mapping:
       kind: ethereum/events
@@ -38,7 +38,7 @@ dataSources:
     name: DistributeFundContractV2
     network: goerli
     source:
-      address: "0x3515951b4691085115D142044532D26Ae4E95342"
+      address: "0x01A30d3A5F7ebA57B86027Cf644BBc1a4a844072"
       abi: DistributeFundContractV2
     mapping:
       kind: ethereum/events
@@ -84,7 +84,7 @@ dataSources:
     name: FundRaiseAdapterContract
     network: goerli
     source:
-      address: "0x236Aab623a87591a2683778D5d766953eb107594"
+      address: "0xC7a3E3B1124f16940791fe3ef36eF37C7268D42D"
       abi: FundRaiseAdapterContract
     mapping:
       kind: ethereum/events
@@ -97,8 +97,8 @@ dataSources:
         - name: FundRaiseAdapterContract
           file: ./abis/FundRaiseAdapterContract.json
       eventHandlers:
-        - event: ProposalCreated(bytes32,address,uint256,uint256,uint256,uint256,uint256,uint256,uint256,uint256,uint256)
+        - event:  ProposalCreated(bytes32,address,uint256,uint256,uint256,uint256,uint256,uint256,uint256,uint256,uint256,uint8)
           handler: handleProposalCreated
-        - event: proposalExecuted(bytes32,uint256)
+        - event: proposalExecuted(bytes32,uint8)
           handler: handleproposalExecuted
       file: ./src/fund-raise-adapter-contract.ts
