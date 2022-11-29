@@ -1,7 +1,13 @@
 {
   "goerli": {
     "FuroVesting": {
-      "address": "0x3AAcadd278226731FDDB530B863d182912B2E38D"
+      "address": "0xde65fd20ac64444adbc4c7cec8164e1d3dc7c10b"
+    },
+    "DistributeFundContractV2": {
+      "address": "0x69b44d07d3cff14b4ff064eb28e6ce4f9edcfa99"
+    },
+    "AllocationAdapterContractV2": {
+      "address": "0x67F5606Da4E637BCA0db1b98CA9f2ffC6CF79a86"
     }
   }
 }
