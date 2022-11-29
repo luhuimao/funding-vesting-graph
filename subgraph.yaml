@@ -84,7 +84,7 @@ dataSources:
     name: FundRaiseAdapterContract
     network: goerli
     source:
-      address: "0x859FE8Bd9BC7F2b7982f2c5b82cE81c32d4327b8"
+      address: "0x3f299f02E7604c884b70359709B6ffA0e0D4d22e"
       abi: FundRaiseAdapterContract
     mapping:
       kind: ethereum/events
