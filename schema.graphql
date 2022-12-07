@@ -85,3 +85,11 @@ type FundRaiseProposal @entity{
   redemptDuration: BigInt! # uint256
   state: BigInt! # uint256
 }
+
+
+type FlexFundingProposal @entity{
+  id: ID!
+  proposalId: Bytes! # bytes32
+  proposer: Bytes! # address
+
+}

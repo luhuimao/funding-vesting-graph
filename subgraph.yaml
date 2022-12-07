@@ -102,3 +102,25 @@ dataSources:
         - event: proposalExecuted(bytes32,uint8)
           handler: handleproposalExecuted
       file: ./src/fund-raise-adapter-contract.ts
+  - kind: ethereum
+    name: FlexFundingAdapterContract
+    network: goerli
+    source:
+      address: "0x9E22eAa53E65514CAC8954641e8d1358655CB5f9"
+      abi: FlexFundingAdapterContract
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      entities:
+        - ProposalCreated
+        - ProposalExecuted
+      abis:
+        - name: FlexFundingAdapterContract
+          file: ./abis/FlexFundingAdapterContract.json
+      eventHandlers:
+        - event:  ProposalCreated(bytes32,address)
+          handler: handleProposalCreated
+        - event: ProposalExecuted(bytes32)
+          handler: handleproposalExecuted
+      file: ./src/flex-funding-adapter-contract.ts
