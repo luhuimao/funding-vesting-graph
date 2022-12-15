@@ -62,7 +62,7 @@ dataSources:
     name: AllocationAdapterContractV2
     network: goerli
     source:
-      address: "0x67F5606Da4E637BCA0db1b98CA9f2ffC6CF79a86"
+      address: "0x0a4A87086c24BD97085794438AC3fE563df083B1"
       abi: AllocationAdapterContractV2
     mapping:
       kind: ethereum/events
@@ -84,7 +84,7 @@ dataSources:
     name: FundRaiseAdapterContract
     network: goerli
     source:
-      address: "0x74dd10598AC4399E38f86D590AD5224F96cC6097"
+      address: "0x034f3575B0C67aF02cb0F80E5aB332095B55FBd5"
       abi: FundRaiseAdapterContract
     mapping:
       kind: ethereum/events
@@ -106,7 +106,7 @@ dataSources:
     name: FlexFundingAdapterContract
     network: goerli
     source:
-      address: "0x9E22eAa53E65514CAC8954641e8d1358655CB5f9"
+      address: "0xE842eC92d59914E6F45d05737c723Da15db71692"
       abi: FlexFundingAdapterContract
     mapping:
       kind: ethereum/events
@@ -124,3 +124,25 @@ dataSources:
         - event: ProposalExecuted(bytes32)
           handler: handleproposalExecuted
       file: ./src/flex-funding-adapter-contract.ts
+  - kind: ethereum
+    name: FlexVesting
+    network: goerli
+    source:
+      address: "0x77e90751Acbd69b77e6537d96167028315b6937b"
+      abi: FlexVesting
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      entities:
+        - CreateVesting
+        - Withdraw
+      abis:
+        - name: FlexVesting
+          file: ./abis/FlexVesting.json
+      eventHandlers:
+        - event:  CreateVesting(indexed uint256,address,indexed address,uint32,uint32,uint32,uint32,uint128,uint128,bytes32)
+          handler: handleCreateVesting
+        - event: Withdraw(indexed uint256,indexed address,indexed uint256,bool)
+          handler: handleWithdraw
+      file: ./src/flex-vesting-contract.ts

@@ -91,5 +91,60 @@ type FlexFundingProposal @entity{
   id: ID!
   proposalId: Bytes! # bytes32
   proposer: Bytes! # address
+  tokenAddress: Bytes! # address
+  minFundingAmount: BigInt! # uint256
+  maxFundingAmount: BigInt! # uint256
+  escrow: Boolean!
+  returnTokenAddr: Bytes! # address
+  returnTokenAmount: BigInt! # uint256
+  price: BigInt! # uint256
+  minReturnAmount: BigInt! # uint256
+  maxReturnAmount: BigInt! # uint256
+  approverAddr: Bytes! # address
+  recipientAddr: Bytes! # address
+  vestingStartTime: BigInt! # uint256
+  vestingCliffDuration: BigInt! # uint256
+  vestingStepDuration: BigInt! # uint256
+  vestingSteps: BigInt! # uint256
+  vestingCliffLockAmount: BigInt! # uint256
+  fundRaiseType: BigInt! # uint256
+  fundRaiseStartTime: BigInt! # uint256
+  fundRaiseEndTime: BigInt! # uint256
+  minDepositAmount: BigInt! # uint256
+  maxDepositAmount: BigInt! # uint256
+  backerIdentification: Boolean!
+  bType: BigInt! # uint256
+  bChainId: BigInt! # uint256
+  bTokanAddr: Bytes! # address
+  bTokenId: BigInt! # uint256
+  bMinHoldingAmount: BigInt! # uint256
+  priorityDeposit: Boolean!
+  pPeriod: BigInt! # uint256
+  pPeriods: BigInt! # uint256
+  pType: BigInt! # uint256
+  pChainId: BigInt! # uint256
+  pTokenAddr: Bytes! # address
+  pTokenId: BigInt! # uint256
+  pMinHolding: BigInt! # uint256
+  tokenRewardAmount: BigInt! # uint256
+  cashRewardAmount: BigInt! # uint256
+  startVoteTime: BigInt! # uint256
+  stopVoteTime: BigInt! # uint256
+  state: BigInt! # uint256
+}
 
+type FlexVestEntity @entity {
+  id: ID!
+  vestId: BigInt! # uint256
+  recipient: Bytes! # address
+  proposalId: Bytes! 
+  tokenAddress: Bytes! # address
+  startTime: BigInt! # uint256
+  cliffDuration: BigInt! # uint256
+  stepDuration: BigInt! # uint256
+  steps: BigInt! # uint256
+  cliffShares: BigInt! # uint256
+  stepShares: BigInt! # uint256
+  totalAmount:  BigInt! # uint256
+  claimedAmount: BigInt! # uint256
 }
